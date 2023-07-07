@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
 import { ScrollView } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { IRootStack } from '../../../types';
@@ -10,58 +10,52 @@ import * as Styled from './styled';
 import { Chat } from '../../../components/icons/Chat/Chat';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Animated } from 'react-native';
-import { useInput } from '../../../hooks/useInput';
 import { useAnimate } from './useAnimate';
 import { IconButton } from '../../../components/IconButton/IconButton';
 import { TextInput } from 'react-native';
 import { Delete } from '../../../components/icons/Delete/Delete';
 import { ModalTwoOptions } from '../../../components/ModalTwoOptions/ModalTwoOptions';
 import { deleteUser, editUser, getUserById } from '../../../databaseMethods';
+import { useRefForValue } from '../../../hooks/useRefForValue';
 
 export const Contact: FC<{}> = ({}) => {
+	// Navigation
+	const navigation = useNavigation<NavigationProp<IRootStack, 'Contact'>>();
+
 	// Route
 	const route = useRoute();
 	const { id, isEdit } = route.params as { id: number, isEdit: boolean };
 
-	// Inputs
+	// Inputs state
 	const [name, setName] = useState('');
 	const [surname, setSurname] = useState('');
 	const [phone, setPhone] = useState('');
+	const [shortName, setShortName] = useState('');
 
-	const nameRef = useRef('');
-	const surnameRef = useRef('');
-	const phoneRef = useRef('');
+	// Inputs refs
+	const nameRef = useRefForValue(name);
+	const surnameRef = useRefForValue(surname);
+	const phoneRef = useRefForValue(phone);
+	const shortNameRef = useRefForValue(shortName);
 
-	useEffect(() => {
-		nameRef.current = name;
-	}, [name])
-
-	useEffect(() => {
-		surnameRef.current = surname;
-	}, [surname])
-
-	useEffect(() => {
-		phoneRef.current = phone;
-	}, [phone])
 
 	const handlePhone = (text: string) => {
 		setPhone(text.replace(/\D/g, ''))
 	}
 
+	// Get data
 	useEffect(() => {
 		const getData = async () => {
 			await getUserById(id).then((user) => {
 				setName(user.name);
 				setSurname(user.surname);
 				setPhone(user.phone);
+				setShortName(user.shortName);
 			});
 			setFixData({ name: name, surname: surname, phone: phone });
 		}
 		getData();
 	}, [id])
-
-	// Navigation
-	const navigation = useNavigation<NavigationProp<IRootStack, 'Contact'>>();
 
 	// Check changes
 	const [isHaveChanges, setIsHaveChanges] = useState(false);
@@ -113,10 +107,12 @@ export const Contact: FC<{}> = ({}) => {
 		navigation.navigate('Contacts');
 	}
 
+	// Go to chat
 	const handleMessage = () => {
 		navigation.navigate('Chat', { id: id });
 	}
 
+	// Header buttons
 	useEffect(() => {
 		navigation.setOptions({
 			headerRight: () => <HeaderButton title={`${isEdit ? 'Done' : 'Edit' }`} onPress={!isEdit ? handleEditNavigate : isHaveChanges ? handleFinishNavigate : undefined } color={!isEdit ? Colors.general.white : isHaveChanges ? Colors.general.white : Colors.secondary.gray} />,
@@ -133,7 +129,7 @@ export const Contact: FC<{}> = ({}) => {
 						<Styled.Contact>
 							<Animated.View style={{ transform: [{ translateY: photoPosition }] }}>
 								<Styled.ContactPhoto>
-									<Styled.ContactPhotoText>{(name[0] + surname[0]) || ''}</Styled.ContactPhotoText>
+									<Styled.ContactPhotoText>{shortNameRef.current}</Styled.ContactPhotoText>
 								</Styled.ContactPhoto>
 							</Animated.View>
 							<Animated.View style={{ transform: [{ scale: infoScale }] }}>

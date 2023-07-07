@@ -4,14 +4,14 @@ import * as Styled from "./styled";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { IRootStack } from "../../../types";
 
-export const ContactPreview: FC<IContactPreview> = ({ id, name, surname }) => {
+export const ContactPreview: FC<IContactPreview> = ({ id, name, surname, shortName }) => {
 	const navigation = useNavigation<NavigationProp<IRootStack, 'Contact'>>();
 	const handlePress = () => navigation.navigate('Contact', { id: id, isEdit: false });
 
 	return (
 		<Styled.ContactPreview onPress={handlePress}>
 			<Styled.ContactPreviewPhoto>
-				<Styled.ContactPreviewPhotoText>{name[0] + surname[0]}</Styled.ContactPreviewPhotoText>
+				<Styled.ContactPreviewPhotoText>{shortName}</Styled.ContactPreviewPhotoText>
 			</Styled.ContactPreviewPhoto>
 			<Styled.ContactPreviewInfo>
 				<Styled.ContactPreviewName>{name}</Styled.ContactPreviewName>

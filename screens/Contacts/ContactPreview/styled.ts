@@ -20,19 +20,3 @@ export const ContactPreviewPhoto = styled.View`
 	border-radius: 50px;
 	background-color: ${Colors.secondary.gray};
 `;
-
-export const ContactPreviewPhotoText = styled.Text`
-
-`;
-
-export const ContactPreviewInfo = styled.View`
-
-`;
-
-export const ContactPreviewName = styled.Text`
-
-`;
-
-export const ContactPreviewSurname = styled.Text`
-
-`;

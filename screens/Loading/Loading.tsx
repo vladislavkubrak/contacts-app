@@ -31,20 +31,3 @@ export const Loading: FC<ILoading> = ({ navigation }) => {
 		</SafeAreaProvider>
 	);
 }
-
-
-const fetchData = async (navigation: any) => {
-	return new Promise((resolve) => {
-	  setTimeout(() => {
-		navigation.reset({
-		  index: 0,
-		  routes: [{ name: "Contacts" }],
-		});
-		resolve(null);
-	  }, 4000);
-	}); 
-  };
-
-  	// useEffect(() => {
-	// 	fetchData(navigation);
-	// }, []);

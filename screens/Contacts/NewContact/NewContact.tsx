@@ -10,40 +10,38 @@ import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Input } from '../../../components/Input/Input';
 import { createUser } from '../../../databaseMethods';
+import { useRefForValue } from '../../../hooks/useRefForValue';
+
 
 export const NewContact: FC<INewContact> = () => {
-	const [isFormFilled, setIsFormFilled] = useState(false);
+	// Initialize navigation
 	const navigation = useNavigation<NavigationProp<IRootStack, 'Contacts'>>();
 	const handleNavigate = () => navigation.navigate('Contacts');
+
+	// Initialize state
+	const [isFormFilled, setIsFormFilled] = useState(false);
 	const [name, changeName] = useState('');
 	const [surname, changeSurname] = useState('');
 	const [phone, changePhone] = useState('');
-	const nameRef = useRef('');
-	const surnameRef = useRef('');
-	const phoneRef = useRef('');
 
-	useEffect(() => {
-		if (name && surname && phone) setIsFormFilled(true);
-		else setIsFormFilled(false);
-	}, [name, surname, phone]);
-	
+	// Initialize refs
+	const nameRef = useRefForValue(name);
+	const surnameRef = useRefForValue(surname);
+	const phoneRef = useRefForValue(phone);
+
+	// Finalize contact creation
 	const handleDone = async () => {
 		await createUser(nameRef.current, surnameRef.current, phoneRef.current);
 		handleNavigate();
 	}
 
+	// Check if form is filled
 	useEffect(() => {
-		nameRef.current = name;
-	}, [name]);
-	
-	useEffect(() => {
-		surnameRef.current = surname;
-	}, [surname]);
-	
-	useEffect(() => {
-		phoneRef.current = phone;
-	}, [phone]);
+		if (name && surname && phone) setIsFormFilled(true);
+		else setIsFormFilled(false);
+	}, [name, surname, phone]);
 
+	// Dynamically change header button
 	useEffect(() => {
 		navigation.setOptions({
 			headerRight: () => <HeaderButton title='Done' onPress={isFormFilled ? handleDone : undefined} color={isFormFilled ? Colors.secondary.purple : Colors.secondary.gray} />,

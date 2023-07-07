@@ -1,9 +1,5 @@
-
-import 'react-native-gesture-handler';
 import React, { FC } from 'react';
 import { StatusBar } from 'react-native';
-import { Text } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -21,7 +17,6 @@ const Stack = createNativeStackNavigator<IRootStack>();
 const App: FC<{}> = ({}) => {
 	
 	return (
-		// <Text>Tыыыыыыest</Text>
 		<NavigationContainer>
 			<StatusBar hidden />
 			<Stack.Navigator initialRouteName="Loading" screenOptions={options.GeneralOptions}>
