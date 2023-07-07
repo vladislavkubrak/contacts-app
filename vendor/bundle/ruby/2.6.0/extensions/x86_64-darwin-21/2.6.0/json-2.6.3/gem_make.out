@@ -1,0 +1,13 @@
+current directory: /Users/zefir/Desktop/hangout/hydraApp/vendor/bundle/ruby/2.6.0/gems/json-2.6.3/ext/json
+/Users/zefir/.rbenv/versions/2.6.10/bin/ruby -I /Users/zefir/.rbenv/versions/2.6.10/lib/ruby/2.6.0 -r ./siteconf20230704-64723-1loh6yp.rb extconf.rb
+creating Makefile
+
+current directory: /Users/zefir/Desktop/hangout/hydraApp/vendor/bundle/ruby/2.6.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/zefir/Desktop/hangout/hydraApp/vendor/bundle/ruby/2.6.0/gems/json-2.6.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/zefir/Desktop/hangout/hydraApp/vendor/bundle/ruby/2.6.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" install
