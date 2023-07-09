@@ -1,16 +1,19 @@
+// System
 import React, { FC, useContext, useEffect } from 'react';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+// Others
 import { ILoading } from './types';
 import { Text } from './scheme';
 import { initDatabase } from '../../scheme';
-
-import * as Styled from './styled';
 import { Context } from '../../context';
-import { Colors } from '../../constants/Colors';
+
+// Style
+import * as Styled from './styled';
 
 
 export const Loading: FC<ILoading> = ({ navigation }) => {
-	const context = useContext(Context);
+	const { colorScheme } = useContext(Context);
 
 	useEffect(() => {
 		const initializeDatabase = async () => {
@@ -28,7 +31,7 @@ export const Loading: FC<ILoading> = ({ navigation }) => {
 	return (
 		<SafeAreaProvider>
 			<Styled.SafeAreaView>
-				<Styled.Loading color={context.colorScheme}>
+				<Styled.Loading color={colorScheme}>
 					<Styled.Text>{Text}</Styled.Text>
 				</Styled.Loading>
 			</Styled.SafeAreaView>

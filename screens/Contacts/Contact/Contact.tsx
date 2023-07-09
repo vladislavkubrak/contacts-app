@@ -1,24 +1,28 @@
+// System
 import React, { FC, useEffect, useState, useRef, useContext } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback, Keyboard, Animated, TextInput } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useRoute } from '@react-navigation/native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { IRootStack } from '../../../types';
-import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
-import { Colors } from '../../../constants/Colors';
-import * as Styled from './styled';
+import { useRoute, useNavigation, NavigationProp } from '@react-navigation/native';
+
+// Components
 import { Chat } from '../../../components/icons/Chat/Chat';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Animated } from 'react-native';
-import { useAnimate } from './useAnimate';
+import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
 import { IconButton } from '../../../components/IconButton/IconButton';
-import { TextInput } from 'react-native';
 import { Delete } from '../../../components/icons/Delete/Delete';
 import { ModalTwoOptions } from '../../../components/ModalTwoOptions/ModalTwoOptions';
+
+// Others
+import { IRootStack } from '../../../types';
+import { Colors } from '../../../constants/Colors';
+import { useAnimate } from './useAnimate';
 import { deleteUser, editUser, getUserById } from '../../../databaseMethods';
 import { useRefForValue } from '../../../hooks/useRefForValue';
 import { Context } from '../../../context';
 import { content } from '../../../content';
+
+// Style
+import * as Styled from './styled';
+
 
 export const Contact: FC<{}> = ({}) => {
 	// Initialize context

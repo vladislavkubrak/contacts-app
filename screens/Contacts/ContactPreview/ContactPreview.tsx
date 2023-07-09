@@ -1,8 +1,14 @@
+// System
 import React, { FC } from "react";
-import { IContactPreview } from "./types";
-import * as Styled from "./styled";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+
+// Others
+import { IContactPreview } from "./types";
 import { IRootStack } from "../../../types";
+
+// Style
+import * as Styled from "./styled";
+
 
 export const ContactPreview: FC<IContactPreview> = ({ id, name, surname, shortName }) => {
 	const navigation = useNavigation<NavigationProp<IRootStack, 'Contact'>>();

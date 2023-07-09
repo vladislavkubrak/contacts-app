@@ -1,18 +1,25 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+// System
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { INewContact } from './types';
 import { useNavigation } from '@react-navigation/native';
-import * as Styled from './styled';
 import { NavigationProp } from '@react-navigation/native';
+
+// Components
+import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
+import { Input } from '../../../components/Input/Input';
+
+// Others
+import { INewContact } from './types';
 import { IRootStack } from '../../../types';
 import { Colors } from '../../../constants/Colors';
-import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
-import { TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
-import { Input } from '../../../components/Input/Input';
 import { createUser } from '../../../databaseMethods';
 import { useRefForValue } from '../../../hooks/useRefForValue';
 import { content } from '../../../content';
 import { Context } from '../../../context';
+
+// Style
+import * as Styled from './styled';
 
 
 export const NewContact: FC<INewContact> = () => {

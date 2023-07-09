@@ -1,26 +1,34 @@
+// System
 import React, { FC, useContext, useEffect } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+// Components
 import { ContactPreview } from './ContactPreview/ContactPreview';
+
+// Others
 import { IContacts } from './types';
 import { Colors } from '../../constants/Colors';
 import { getAllUsers } from '../../databaseMethods';
-import * as Styled from './styled';
 import { Context } from '../../context';
 import { content } from '../../content';
 
+// Style
+import * as Styled from './styled';
+
+
 export const Contacts: FC<IContacts> = ({ navigation }) => {
 	const [contacts, setContacts] = React.useState([]);
-	const context = useContext(Context);
-	const { title } = content[context.language].screens.Contacts
+	const { colorScheme, language } = useContext(Context);
+	const { title } = content[language].screens.Contacts
 
 	useEffect(() => {
 		navigation.setOptions({
 			headerStyle: {
-				backgroundColor: context.colorScheme,
+				backgroundColor: colorScheme,
 			},
 			headerTitle: title,
 		});
-	}, [navigation, context])
+	}, [navigation, colorScheme, language])
 
 	useEffect(() => {
 		getAllUsers().then((res) => setContacts(res));
