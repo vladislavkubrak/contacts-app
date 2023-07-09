@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 import { Colors } from '../../constants/Colors';
 
-export const Loading = styled.View`
+export const Loading = styled.View<{color: string}>`
 	display: flex;
-	background-color: ${Colors.general.purple};
+	background-color: ${props => props.color};
 	width: 100%;
 	height: 100%;
 	padding-bottom: 80px;

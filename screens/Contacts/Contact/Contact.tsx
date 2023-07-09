@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
+import React, { FC, useEffect, useState, useRef, useContext } from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
@@ -17,8 +17,14 @@ import { Delete } from '../../../components/icons/Delete/Delete';
 import { ModalTwoOptions } from '../../../components/ModalTwoOptions/ModalTwoOptions';
 import { deleteUser, editUser, getUserById } from '../../../databaseMethods';
 import { useRefForValue } from '../../../hooks/useRefForValue';
+import { Context } from '../../../context';
+import { content } from '../../../content';
 
 export const Contact: FC<{}> = ({}) => {
+	// Initialize context
+	const { language, colorScheme } = useContext(Context);
+	const { title, cancelTitle, editTitle, doneTitle, messageTitle, deleteTitle, buttonDelete } = content[language].screens.Contact;
+
 	// Navigation
 	const navigation = useNavigation<NavigationProp<IRootStack, 'Contact'>>();
 
@@ -30,13 +36,11 @@ export const Contact: FC<{}> = ({}) => {
 	const [name, setName] = useState('');
 	const [surname, setSurname] = useState('');
 	const [phone, setPhone] = useState('');
-	const [shortName, setShortName] = useState('');
 
 	// Inputs refs
 	const nameRef = useRefForValue(name);
 	const surnameRef = useRefForValue(surname);
 	const phoneRef = useRefForValue(phone);
-	const shortNameRef = useRefForValue(shortName);
 
 
 	const handlePhone = (text: string) => {
@@ -50,7 +54,6 @@ export const Contact: FC<{}> = ({}) => {
 				setName(user.name);
 				setSurname(user.surname);
 				setPhone(user.phone);
-				setShortName(user.shortName);
 			});
 			setFixData({ name: name, surname: surname, phone: phone });
 		}
@@ -91,9 +94,9 @@ export const Contact: FC<{}> = ({}) => {
 
 	// Edit contact
 	const handleEditNavigate = () => {
-		if (inputRef && inputRef.current)
-			(inputRef.current as any).focus(); // DOESNT WORK
-		navigation.setOptions({ headerLeft: () => <HeaderButton title={`Cancel`} onPress={handleCancelNavigate} color={Colors.general.white} />});
+		// if (inputRef && inputRef.current)
+		// 	(inputRef.current as any).focus(); // DOESNT WORK
+		navigation.setOptions({ headerLeft: () => <HeaderButton title={cancelTitle} onPress={handleCancelNavigate} color={Colors.general.white} />});
 		navigation.navigate('Contact', { id: id, isEdit: true });
 		animate(true);
 	};
@@ -115,10 +118,14 @@ export const Contact: FC<{}> = ({}) => {
 	// Header buttons
 	useEffect(() => {
 		navigation.setOptions({
-			headerRight: () => <HeaderButton title={`${isEdit ? 'Done' : 'Edit' }`} onPress={!isEdit ? handleEditNavigate : isHaveChanges ? handleFinishNavigate : undefined } color={!isEdit ? Colors.general.white : isHaveChanges ? Colors.general.white : Colors.secondary.gray} />,
+			headerStyle: {
+				backgroundColor: colorScheme,
+			},
+			headerTitle: title,
+			headerRight: () => <HeaderButton title={`${isEdit ? doneTitle : editTitle }`} onPress={!isEdit ? handleEditNavigate : isHaveChanges ? handleFinishNavigate : undefined } color={!isEdit ? Colors.general.white : isHaveChanges ? Colors.general.white : Colors.secondary.gray} />,
 		});
 		if (!isEdit) navigation.setOptions({ headerLeft: () => null })
-	}, [navigation, isEdit, isHaveChanges]);
+	}, [navigation, isEdit, isHaveChanges, colorScheme]);
 
 	
 	return (
@@ -129,7 +136,7 @@ export const Contact: FC<{}> = ({}) => {
 						<Styled.Contact>
 							<Animated.View style={{ transform: [{ translateY: photoPosition }] }}>
 								<Styled.ContactPhoto>
-									<Styled.ContactPhotoText>{shortNameRef.current}</Styled.ContactPhotoText>
+									<Styled.ContactPhotoText>{(name[0] + surname[0]) || ''}</Styled.ContactPhotoText>
 								</Styled.ContactPhoto>
 							</Animated.View>
 							<Animated.View style={{ transform: [{ scale: infoScale }] }}>
@@ -144,13 +151,13 @@ export const Contact: FC<{}> = ({}) => {
 								</Styled.Phone>
 							</Animated.View>
 							<Animated.View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'center', transform: [{ translateY: buttonPosition }] }}>
-								<IconButton onPress={handleMessage} style={{ alignSelf: 'center', marginRight: 8 }} text='message' Icon={<Chat color={Colors.general.purple} />} />
-								<IconButton onPress={handleDelete(true)} style={{ alignSelf: 'center' }} text='delete' Icon={<Delete color={Colors.general.error} />} />
+								<IconButton onPress={handleMessage} style={{ alignSelf: 'center', marginRight: 8 }} text={messageTitle} Icon={<Chat color={colorScheme} />} />
+								<IconButton onPress={handleDelete(true)} style={{ alignSelf: 'center' }} text={deleteTitle} Icon={<Delete color={Colors.general.error} />} />
 							</Animated.View>
 						</Styled.Contact>
 					}
 				</ScrollView>
-				<ModalTwoOptions isShow={isDelete} firstText='Delete Contact' secondText='Cancel' handleFirst={handleConfirmDelete} handleSecond={handleDelete(false)} />
+				<ModalTwoOptions isShow={isDelete} firstText={buttonDelete.confirmText} secondText={buttonDelete.cancelText} handleFirst={handleConfirmDelete} handleSecond={handleDelete(false)} />
 			</SafeAreaProvider>
 		</TouchableWithoutFeedback>
 	);

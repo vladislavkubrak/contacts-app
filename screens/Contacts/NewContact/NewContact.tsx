@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { INewContact } from './types';
 import { useNavigation } from '@react-navigation/native';
@@ -7,13 +7,19 @@ import { NavigationProp } from '@react-navigation/native';
 import { IRootStack } from '../../../types';
 import { Colors } from '../../../constants/Colors';
 import { HeaderButton } from '../../../components/HeaderButton/HeaderButton';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { Input } from '../../../components/Input/Input';
 import { createUser } from '../../../databaseMethods';
 import { useRefForValue } from '../../../hooks/useRefForValue';
+import { content } from '../../../content';
+import { Context } from '../../../context';
 
 
 export const NewContact: FC<INewContact> = () => {
+	// Initialize context
+	const { language, colorScheme } = useContext(Context);
+	const { title, rightTitle, leftTitle, placeholders } = content[language].screens.NewContact;
+
 	// Initialize navigation
 	const navigation = useNavigation<NavigationProp<IRootStack, 'Contacts'>>();
 	const handleNavigate = () => navigation.navigate('Contacts');
@@ -44,8 +50,11 @@ export const NewContact: FC<INewContact> = () => {
 	// Dynamically change header button
 	useEffect(() => {
 		navigation.setOptions({
-			headerRight: () => <HeaderButton title='Done' onPress={isFormFilled ? handleDone : undefined} color={isFormFilled ? Colors.secondary.purple : Colors.secondary.gray} />,
+			headerTitle: title,
+			headerLeft: () => <HeaderButton title={leftTitle} onPress={handleNavigate} color={colorScheme} />,
+			headerRight: () => <HeaderButton title={rightTitle} onPress={isFormFilled ? handleDone : undefined} color={isFormFilled ? colorScheme : Colors.secondary.gray} />,
 		});
+		
 	}, [navigation, isFormFilled]);
 	
 	
@@ -55,9 +64,9 @@ export const NewContact: FC<INewContact> = () => {
 				<SafeAreaView>
 					<Styled.NewContact>
 						<Styled.UserIcon />
-							<Input placeholder='Name' value={name} onChangeText={changeName} />
-							<Input placeholder='Surname' value={surname} onChangeText={changeSurname} />
-							<Input keyboardType='phone-pad' placeholder='Phone' value={phone} onChangeText={changePhone} />
+							<Input placeholder={placeholders.name} value={name} onChangeText={changeName} />
+							<Input placeholder={placeholders.surname} value={surname} onChangeText={changeSurname} />
+							<Input keyboardType='phone-pad' placeholder={placeholders.phone} value={phone} onChangeText={changePhone} />
 					</Styled.NewContact>
 				</SafeAreaView>
 			</SafeAreaProvider>

@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { FC, memo, useEffect, useRef, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { IMessages } from './types';
 import { interleaveArrays } from './utils';
@@ -8,9 +7,9 @@ import { Message } from './Message/Message';
 
 import * as Styled from './styled';
 
-export const Messages: FC<IMessages> = ({ flagMsg }) => {
+export const Messages: FC<IMessages> = memo(({ flagMsg, refForScroll }) => {
     // State and Refs
-	const flatListRef = useRef<FlatList>(null);
+	// const flatListRef = useRef<FlatList>(null);
 	const [data, setData] = useState<any>([]);
 
     // Route
@@ -32,17 +31,18 @@ export const Messages: FC<IMessages> = ({ flagMsg }) => {
 
 
 	return (
-		<Styled.Messages>
-            <FlatList
-                ref={flatListRef}
-                data={data}
-                renderItem={({ item }) => <Message text={item.text} isMe={item.isMe} />}
-                keyExtractor={(_, index) => index.toString()}
-                keyboardShouldPersistTaps="handled"
-                contentInsetAdjustmentBehavior="never"
-                showsVerticalScrollIndicator={false}
-                // onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-            />
-		</Styled.Messages>
+		<Styled.Messages
+			ref={refForScroll}
+			data={data}
+			renderItem={({item}: any) => <Message text={item.text} isMe={item.isMe} />}
+			keyExtractor={(_: any, index: any) => index.toString()}
+			keyboardShouldPersistTaps="handled"
+			contentInsetAdjustmentBehavior="never"
+			showsVerticalScrollIndicator={false}
+			// contentContainerStyle={{
+			// 	flexGrow: 1,
+			// 	}}
+			// onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+		/>
 	);
-}
+});

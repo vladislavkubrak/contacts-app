@@ -1,14 +1,14 @@
 import styled from "styled-components/native";
 import { Colors } from "../../constants/Colors";
 
-export const SendButton = styled.TouchableOpacity`
+export const SendButton = styled.TouchableOpacity<{color: string}>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 30px;
 	height: 30px;
-	background-color: ${Colors.general.purple};
+	background-color: ${props => props.color};
 	border-radius: 100px;
 `;
 

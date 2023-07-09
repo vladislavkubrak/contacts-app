@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { Colors } from '../../../../constants/Colors';
 
-export const Message = styled.View<{isMe: boolean}>`
+export const Message = styled.View<{isMe: boolean, color: string}>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -13,7 +13,7 @@ export const Message = styled.View<{isMe: boolean}>`
 	min-height: 40px;
 	max-width: 80%;
 	border-radius: 100px;
-	background-color: ${props => props.isMe ? Colors.general.purple : Colors.other.chatBackground};
+	background-color: ${props => props.isMe ? props.color : Colors.other.chatBackground};
 	margin-left: ${props => props.isMe ? 'auto' : '0'};
 	margin-right: ${props => props.isMe ? '0' : 'auto'};
 	margin-bottom: 10px;

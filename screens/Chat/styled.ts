@@ -1,13 +1,11 @@
 import styled from "styled-components/native";
 import { Colors } from "../../constants/Colors";
-import { FlatList, View } from "react-native";
 
 export const Chat = styled.View<{isShowKeyboard?: boolean}>`
 	flex: 1;
-	width: 100%;
-	padding-bottom: 0;
-	
-	position: relative;
+	height: 100%;
+	padding-top: 2px;
+	padding-bottom: ${props => props.isShowKeyboard ? '400px' : '80px'};
 `;
 
 export const HeaderTitle = styled.View`

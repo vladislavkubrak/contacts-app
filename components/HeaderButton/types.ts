@@ -13,4 +13,5 @@ export interface IHeaderButton {
 		color?: string,
 	};
 	onPress?: () => void;
+	style?: StyleProp<ViewStyle>;
 }

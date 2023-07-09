@@ -8,4 +8,5 @@ export interface IInput {
 	value: string;
 	onChangeText: (text: string) => void;
 	keyboardType?: KeyboardTypeOptions;
+	onFocus?: () => void;
 }
