@@ -38,11 +38,11 @@ Also the application has two languages and a choice of the main color of the app
 ## Screenshots
 
 <div style="display: flex;">
-  <img src="./screenshots/screen0.png" width="20%" alt="desktop">
-  <img src="./screenshots/screen1.png" width="20%" alt="contacts">
-  <img src="./screenshots/screen2.png" width="20%" alt="contact">
-  <img src="./screenshots/screen3.png" width="20%" alt="delete contact">
-  <img src="./screenshots/screen4.png" width="20%" alt="chat">
+  <img src="./screenshots/screen0.png" width="18%" alt="desktop">
+  <img src="./screenshots/screen1.png" width="18%" alt="contacts">
+  <img src="./screenshots/screen2.png" width="18%" alt="contact">
+  <img src="./screenshots/screen3.png" width="18%" alt="delete contact">
+  <img src="./screenshots/screen4.png" width="18%" alt="chat">
 </div>
 
 
