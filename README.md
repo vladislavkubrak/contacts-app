@@ -5,7 +5,7 @@ With it you can create contacts, delete them, edit them, write to them in chat.
 Also the application has two languages and a choice of the main color of the application
 
 
-<img src="./screenshots/demonstration.gif" align="right" width="65%"/>
+<img src="./screenshots/demostration.gif" align="right" width="65%"/>
 
 ## Technologies
 
@@ -37,11 +37,11 @@ Also the application has two languages and a choice of the main color of the app
 
 ## Screenshots
 
-  <img src="./screenshots/screen0.png" width="100%" alt="desktop">
-  <img src="./screenshots/screen1.png" width="100%" alt="contacts">
-  <img src="./screenshots/screen2.png" width="100%" alt="contact">
-  <img src="./screenshots/screen3.png" width="100%" alt="delete contact">
-  <img src="./screenshots/screen4.png" width="100%" alt="chat">
+  <img src="./screenshots/screen0.png" width="20%" alt="desktop">
+  <img src="./screenshots/screen1.png" width="20%" alt="contacts">
+  <img src="./screenshots/screen2.png" width="20%" alt="contact">
+  <img src="./screenshots/screen3.png" width="20%" alt="delete contact">
+  <img src="./screenshots/screen4.png" width="20%" alt="chat">
 
 
   
